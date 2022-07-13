@@ -1,4 +1,4 @@
-{ pkgs, fetchFromGitHub, ... }:
+{ pkgs, fetchFromGitHub, pkgs21_11, ... }:
 
 {
   environment.systemPackages = with pkgs; [

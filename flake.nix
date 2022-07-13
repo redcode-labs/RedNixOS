@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-21_11.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-21_11.url = "github:NixOS/nixpkgs/nixos-21.11";
   };
 
   outputs = inputs @ {
@@ -30,7 +30,7 @@
             # doesn't need to run "nix-channel --update" first.
             "${modulesPath}/installer/cd-dvd/channel.nix"
 
-            ./rednixos-iso-unstable.nix
+            ./rednixos-iso.nix
           ]
           ++ extraModules;
       };

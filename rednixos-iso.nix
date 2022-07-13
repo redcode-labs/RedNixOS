@@ -6,8 +6,8 @@
   ...
 }: {
   environment.systemPackages = [
-    pkgs21_11.hello
   ];
+  environment.defaultPackages = [];
 
   # use soystemd-boot EFI boot loader
   boot = {
