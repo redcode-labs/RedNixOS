@@ -31,7 +31,6 @@
             "${modulesPath}/installer/cd-dvd/channel.nix"
 
             ./rednixos-iso-unstable.nix
-            ./packages.nix
           ]
           ++ extraModules;
       };
@@ -39,8 +38,16 @@
     nixosConfigurations = {
       "RedNixOS-xfce" = mkSystem [
         ./xfce.nix
+        ./packages.nix
+      ];
+      "RedNixOS-xfce-light" = mkSystem [
+        ./xfce.nix
       ];
       "RedNixOS-kde" = mkSystem [
+        ./kde.nix
+        ./packages.nix
+      ];
+      "RedNixOS-kde-light" = mkSystem [
         ./kde.nix
       ];
     };
