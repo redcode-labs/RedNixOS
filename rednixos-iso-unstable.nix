@@ -189,8 +189,8 @@
   # nixpkgs config
   nixpkgs.config = {
     allowUnfree = true;
-    # allowBroken = true;
-    # allowInsecurePredicate = p: true;
+    allowBroken = true;
+    allowInsecurePredicate = p: true;
   };
 
   # the version of NixOS around which RedNixOS will be built

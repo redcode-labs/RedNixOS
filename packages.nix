@@ -3,6 +3,10 @@
 {
   environment.systemPackages = with pkgs; [
 
+    # sorry if anything's duplicated
+    # feel free to PR to make this file less 'messy'
+    # as well as add other packages
+
     # General
     chrony
     clamav
@@ -34,66 +38,108 @@
     file
     tor
     torsocks
+    xh
 
-    # Misc
-    badchars
-    deepsea
-    honeytrap
-    pwntools
+    # Host
+    checksec
+    chkrootkit
+    lynis
+    safety-cli
+    tracee
+    vulnix
+
+    # Terminals
+    cutecom
+    minicom
+    picocom
+    socat
+    x3270
+    tmate
+
+    # Terminal multiplexer
+    screen
+    tmux
+
+    # Archive tools
+    cabextract
+    p7zip
+    unrar
+    unzip
 
     # Mobile
     abootimg
+    androguard
+    apkeep
+    apkleaks
     apktool
     dex2jar
     genymotion
-    python39Packages.androguard
+    ghost
     simg2img
+    trueseeing
 
     # Hardware
     arduino
     cantoolz
     chipsec
     esptool
+    extrude
     hachoir
+    # nrfutil
+    tytools
     python3Packages.angr
     python3Packages.angrop
     python3Packages.can
     python3Packages.pyi2cflash
     python3Packages.pyspiflash
+    routersploit
 
     # Protocols
     cifs-utils
     freerdp
-    mosh
     net-snmp
     nfs-utils
     ntp
     openssh
     openvpn
     samba
-    # tightvnc
+    step-cli
+    tightvnc
     wireguard-go
     wireguard-tools
     xrdp
 
+    # load testing
+    drill
+    cassowary
+    ddosify
+    siege
+    tsung
+    vegeta
+
     # Network
-    netkittftp
+    arping
     atftp
+    bandwhich
+    crackmapexec
     evillimiter
     iperf2
     lftp
     mtr
-    # ncat
     ncftp
     netcat-gnu
+    netdiscover
     nload
-    # nuttcp `error: The store path /nix/store/y5cd1rxjjz8z0c5gjjwijcbqn9yrd6ql-nuttcp.8 is a file and can't be merged into an environment using pkgs.buildEnv! at /nix/store/87sn6m7rzz9y3z64j8bbbkfzkabm4774-builder.pl line 122.`
+    nuttcp
+    p0f
     putty
     pwnat
+    rustcat
     sshping
     sslh
     wbox
     whois
+    yersinia
     ipcalc
     netmask
 
@@ -103,17 +149,18 @@
     masscan
     naabu
     nmap
-    # nmap-graphical `error: nmap graphical support has been removed due to its python2 dependency`
+    sx-go
     rustscan
     zmap
 
     # Packet generators
+    boofuzz
     gping
     fping
     hping
     ostinato
     pktgen
-    python39Packages.scapy
+    python3Packages.scapy
 
     # Vul. analysis
     checksec
@@ -139,17 +186,18 @@
     junkie
     netsniff-ng
     ngrep
+    secrets-extractor
     sniffglue
     tcpdump
     tcpflow
     tcpreplay
     termshark
-    tshark
     wireshark
     wireshark-cli
     zeek
 
     # Tunnels
+    bore-cli
     corkscrew
     hans
     chisel
@@ -165,9 +213,11 @@
     sipp
     sipsak
     sipvicious
+    sngrep
 
     # Wireless
     aircrack-ng
+    airgeddon
     bully
     cowpatty
     horst
@@ -185,59 +235,53 @@
     multimon-ng
 
     # Information gathering
+    maigret
+    metabigor
     sn0int
     p0f
     theharvester
     urlhunter
     cloudbrute
     ntopng
+    urlhunter
 
     # Reverse engineering
     bingrep
+    cutter
+    # flare-floss
     gdb
     ghidra-bin
     mono
     pev
     pwndbg
-    python39Packages.binwalk
-    python39Packages.binwalk-full
-    python39Packages.unicorn
-    python310Packages.r2pipe
+    python3Packages.binwalk
+    python3Packages.binwalk-full
+    python3Packages.malduck
+    python3Packages.karton-core
+    python3Packages.unicorn
+    python3Packages.r2pipe
     radare2
     radare2-cutter
+    rizin
+    stacks
     unicorn
     unicorn-emu
     volatility3
     xortool
     yara
+    zkar
     zydis
     jd-gui
     valgrind
 
-    # Terminals
-    cutecom
-    minicom
-    picocom
-    socat
-    x3270
-    tmate
-
-    # Terminal multiplexer
-    screen
-    tmux
-
-    # Archive tools
-    cabextract
-    p7zip
-    unrar
-    unzip
-
     # Fuzzers
     afl
     aflplusplus
+    feroxbuster
     ffuf
     honggfuzz
     radamsa
+    regexploit
     ssdeep
     wfuzz
     zzuf
@@ -254,6 +298,7 @@
     ext4magic
     extundelete
     foremost
+    gef
     gzrt
     hivex
     ntfs3g
@@ -275,7 +320,10 @@
     amass
     bind
     dnsenum
+    dnsmon-go
+    dnsmonster
     dnsrecon
+    dnstake
     dnstracer
     dnstwist
     dnsx
@@ -283,19 +331,27 @@
     findomain
     knockpy
     subfinder
+    subzerod
 
     # Smartcards
     cardpeek
     libfreefare
     mfcuk
     mfoc
+    python3Packages.emv
 
     # Bluetooth
     bluez
     python39Packages.bleak
+    bluewalker
+    pc-ble-driver
+    python39Packages.pc-ble-driver-py
+    redfang
+    ubertooth
 
     # Passwords
     badtouch
+    authoscope
     bruteforce-luks
     brutespray
     crunch
@@ -306,9 +362,11 @@
     medusa
     nasty
     ncrack
+    nth
     phrasendrescher
-    python38Packages.patator
+    # python3Packages.patator
     thc-hydra
+    truecrack
     chntpw
     crowbar
     hcxtools
@@ -321,50 +379,132 @@
     enum4linux
     enum4linux-ng
     ike-scan
-    python39Packages.ldapdomaindump
     ldeep
-    metasploit
     nikto
-    nuclei
     onesixtyone
-    siege
-    swaks
+    checkip
+    ike-scan
+    metasploit
+    nuclei
     traitor
-    # wafw00f
 
-    # Git
+    # E-Mail
+    swaks
+
+    # Databases
+    mongoaudit
+    sqlmap
+
+    # SNMP
+    onesixtyone
+    snmpcheck
+
+    # SSH
+    sshchecker
+    ssh-audit
+    ssh-mitm
+    ssb
+
+    # IDS/IPS/WAF
+    teler
+    waf-tester
+    wafw00f
+
+    # CI
+    oshka
+
+    # Terraform
+    terrascan
+    tfsec
+
+    # Kubernetes
+    cfripper
+    checkov
+    kdigger
+    kube-score
+    kubeaudit
+    kubescape
+
+    # Supply chain
+    chain-bench
+    witness
+
+    # ldap
+    python39Packages.ldapdomaindump
+    adenum
+    ldapmonitor
+    ldeep
+
+    # Git & code
     gitjacker
     trufflehog
     gitleaks
     shhgit
+    git-secret
+    gitleaks
+    gitls
     secretscanner
+    cargo-audit
+    credential-detector
+    detect-secrets
+    gokart
+    osv-detector
+    pip-audit
+    python310Packages.safety
+    skjold
+    whispers
 
     # *SQL
     sqlmap
 
     # Web, HTTP, proxies
-    monsoon
+    brakeman
+    cameradar
+    cariddi
+    chopchop
+    commix
+    corsair
+    python3Packages.corsair-scan
+    crlfsuite
+    dalfox
+    dismap
+    dontgo403
     galer
     gau
-    # corsmisc `error: corsmisc has been removed (upstream is gone)`
-    # bypass403 `error: bypass403 has been removed: deleted by upstream`
-    subjs
-    photon
-    ntlmrecon
-    wad
-    httpx
-    snallygaster
-    hakrawler
-    wuzz
-    uddup
-    # sigurlx `error: sigurlx has been removed (upstream is gone)`
     gospider
+    gotestwaf
+    gowitness
+    graphqlmap
+    graphw00f
+    hakrawler
+    hey
+    httpx
+    nodePackages_latest.hyperpotamus
+    jaeles
+    jsubfinder
+    jwt-hack
+    kiterunner
+    mitmproxy2swagger
+    monsoon
+    nikto
+    ntlmrecon
+    photon
+    slowlorust
+    snallygaster
+    subjs
+    swaggerhole
+    uddup
+    wad
+    webanalyze
+    whatweb
     wprecon
     wpscan
+    wuzz
     bettercap
     burpsuite
     ettercap
     mitmproxy
+    mubeng
     proxify
     proxychains
     redsocks
@@ -385,22 +525,40 @@
     teler
 
     # Container, images
+    cdk-go
     clair
+    cliam
+    cloudlist
+    dive
     dockle
     grype
     trivy
     fwanalyzer
 
-    # Terraform
-    terrascan
-    tfsec
-
-    # Kubernetes
-    checkov
-    kube-score
-
     # Windows
-    python39Packages.pypykatz
+    adreaper
+    certipy
+    enum4linux
+    enum4linux-ng
+    erosmb
+    evil-winrm
+    go365
+    gomapenum
+    kerbrute
     nbtscanner
+    offensive-azure
+    python3Packages.pypykatz
+    smbscan
+
+    # Misc
+    badchars
+    changetower
+    deepsea
+    doona
+    honeytrap
+    jwt-cli
+    nmap-formatter
+    pwntools
+    python3Packages.pytenable
   ];
 }
