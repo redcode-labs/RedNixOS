@@ -130,7 +130,7 @@
     netcat-gnu
     netdiscover
     nload
-    nuttcp
+    # nuttcp
     p0f
     putty
     pwnat
@@ -235,7 +235,7 @@
     multimon-ng
 
     # Information gathering
-    maigret
+    # maigret
     metabigor
     sn0int
     p0f
@@ -344,8 +344,8 @@
     bluez
     python39Packages.bleak
     bluewalker
-    pc-ble-driver
-    python39Packages.pc-ble-driver-py
+    # pc-ble-driver
+    # python39Packages.pc-ble-driver-py
     redfang
     ubertooth
 
@@ -408,7 +408,7 @@
     # IDS/IPS/WAF
     teler
     waf-tester
-    wafw00f
+    # wafw00f
 
     # CI
     oshka
@@ -479,7 +479,7 @@
     hakrawler
     hey
     httpx
-    nodePackages_latest.hyperpotamus
+    # nodePackages_latest.hyperpotamus
     jaeles
     jsubfinder
     jwt-hack
