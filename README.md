@@ -6,10 +6,10 @@
 RedNixOS aims to be a Kali-like Linux distribution built around NixOS, tailored for security researchers, pen-testers, red teamers and infosec enthusiasts.
 
 ## How to use
-RedNixOS is intended to be used in one of the following ways:
-1. Inside a virtual machine (for instance as a playground, or for testing purpouses).
-2. Live install (capable of replacing Kali at times, but RedNixOS way cooler).
-3. Persistent install (it _works_, but most people don't quite use it like this).
+RedNixOS is meant to be used in one of the following ways:
+1. Inside a virtual machine (for example, as a playground or for testing purposes).
+2. Live install (sometimes capable of replacing Kali, but RedNixOS way cooler).
+3. Persistent install (it _works_, but most people don't exactly use it like this).
 
 ## Features
 Simply put, this project is a pre-made NixOS config. Therefore, it's merely required to build the `.iso` file yourself. Furthermore, RedNixOS includes large amounts preinstalled software, as defined in `packages.nix` file, which you can accommodate to your needs.
