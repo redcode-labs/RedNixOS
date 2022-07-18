@@ -1,4 +1,6 @@
-<h1 align="center"> RedNixOS </h1> <div align="center"> <img src="assets/logoTransparentBg.png" width="333"><br>NixOS 'distro' for security enthusiasts</a><br> <img src="https://builtwithnix.org/badge.svg"> </div>
+<h1 align="center"> RedNixOS </h1> <div align="center"> <img src="assets/screenshot.png"><br>NixOS 'distro' for security enthusiasts</a><br> 
+
+<img src="https://builtwithnix.org/badge.svg"> </div>
 
 ## What is this project
 This aims to be more or less a Kali-like distro, but built around NixOS.
@@ -36,5 +38,15 @@ Consider this project rather a modification of existing NixOS (it literally is p
 Also can be considered as a better version of existing [RedNix](https://github.com/redcode-labs/RedNix) - NixOS container and nix-shells.
 RedNix was used as a base idea-wise for RedNixOS, all the packages are the same.
 
+Note that it was heavily influenced by other projects besides **RedNix**. One of the major contributors behind this idea was [nix-security-box](https://github.com/fabaff/nix-security-box) by [fabaff](https://github.com/fabaff/). Check it out as well.
+
+Besides from that, 
+
 ### How often will you update the upstream?
 I'll try to keep it updated as often as mainstream NixOS, using this as a chance to add some packages and bump the version numbers in here as well.
+
+Currently available Kali packages for nixpkgs are constantly listed by the [nix-security-box website](https://fabaff.github.io/nix-security-box/), as well as [this issue](https://github.com/NixOS/nixpkgs/issues/81418) and [this website](https://jjjollyjim.github.io/arewehackersyet/index.html).
+
+### Contributing
+
+Feel free to add anything. From different packages, through cosmetic tweaks to usability features.
