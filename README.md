@@ -14,7 +14,7 @@ RedNixOS is meant to be used in one of the following ways:
 ## Features
 Simply put, this project is a pre-made NixOS config. Therefore, it's merely required to build the `.iso` file yourself. Furthermore, RedNixOS includes large amounts preinstalled software, as defined in `packages.nix` file, which you can accommodate to your needs.
 
-By default, RedNixOS uses the Zen kernel, which might achieve better performance. Additionally, certain networking an security features are enabled, such as:
+By default, RedNixOS uses the Zen kernel, which might achieve better performance. Additionally, certain networking and security features are enabled, such as:
 - `sudo` only for the `wheel` group
 - AppArmor
 - `lockKernelModules`
