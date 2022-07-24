@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-21_11.url = "github:NixOS/nixpkgs/nixos-unstable";
+    rednix = {
+      url = "github:redcode-labs/RedNix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -35,17 +39,19 @@
           ++ extraModules;
       };
   in {
-    nixosConfigurations = {
+    nixosConfigurations = let
+      packages = {pkgs, ...}: {environment.systemPackages = nixpkgs.lib.attrValues inputs.rednix.packages.${pkgs.system};};
+    in {
       "RedNixOS-xfce" = mkSystem [
         ./xfce.nix
-        ./packages.nix
+        packages
       ];
       "RedNixOS-xfce-light" = mkSystem [
         ./xfce.nix
       ];
       "RedNixOS-kde" = mkSystem [
         ./kde.nix
-        ./packages.nix
+        packages
       ];
       "RedNixOS-kde-light" = mkSystem [
         ./kde.nix

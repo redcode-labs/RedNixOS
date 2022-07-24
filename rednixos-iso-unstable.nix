@@ -75,9 +75,7 @@
         interface = [];
       };
     };
-
-    tlp.enable = true;
-
+    
     # using VPN is generally a good idea
     # use Mullvad btw
     # mullvad-vpn.enable = true;
@@ -177,12 +175,12 @@
   # nix config
   nix = {
     package = pkgs.nixUnstable;
-    allowedUsers = ["@wheel"]; # locks down access to nix-daemon
     settings = {
       extra-experimental-features = [
         "nix-command"
         "flakes"
       ];
+      allowed-users = ["@wheel"]; #locks down access to nix-daemon
     };
   };
 

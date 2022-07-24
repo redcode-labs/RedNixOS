@@ -76,8 +76,6 @@
       };
     };
 
-    tlp.enable = true;
-
     # using VPN is generally a good idea
     # use Mullvad btw
     # mullvad-vpn.enable = true;
