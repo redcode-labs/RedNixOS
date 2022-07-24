@@ -66,11 +66,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1658669981,
-        "narHash": "sha256-uTf4KiQIxLHTOQjy0YohMYBOTwy7fHrA06M+x8DJd5E=",
+        "lastModified": 1658681844,
+        "narHash": "sha256-15X0ECxCxzIpbrEQNYhZb/L9Rq2aj1+cfldcxQs5xW4=",
         "owner": "redcode-labs",
         "repo": "RedNix",
-        "rev": "309afbb0cb416c19b4435e6f6a8d3e88c71b8b27",
+        "rev": "e35253be7f267301e8d159cd8b4a7f50b17343d9",
         "type": "github"
       },
       "original": {
