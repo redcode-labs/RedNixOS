@@ -88,6 +88,8 @@
     qemuGuest.enable = true;
   };
 
+  virtualisation.docker.enable = true;
+
   virtualisation.vmware.guest.enable = true;
   virtualisation.hypervGuest.enable = true;
   virtualisation.virtualbox.guest.enable = false;
@@ -169,6 +171,7 @@
       "audio"
       "video"
       "input"
+      "docker"
     ];
   };
 
