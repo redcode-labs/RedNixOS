@@ -26,7 +26,7 @@ ToolBoxButtonX=-7
 ToolBoxButtonY=44
 
 [Containments][1][Wallpaper][org.kde.image][General]
-Image=/home/red/rednixWallpaperDarker.png
+Image=/home/red/RedNixOSWallpaper.png
 SlidePaths=/nix/store/0ql3wisd9ncday7q808zzjx07yx1byyc-breeze-qt5-5.25.1-bin/share/wallpapers,/run/current-system/sw/share/wallpapers
 
 [Containments][2]

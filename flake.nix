@@ -56,6 +56,9 @@
       "RedNixOS-kde-light" = mkSystem [
         ./kde.nix
       ];
+      "RedNixOS-headless" = mkSystem [
+        packages
+      ];
     };
 
     packages."x86_64-linux" =
