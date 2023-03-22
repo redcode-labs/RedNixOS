@@ -196,6 +196,6 @@
 
   # the version of NixOS around which RedNixOS will be built
   system = {
-    stateVersion = "22.11";
+    stateVersion = "23.05";
   };
 }
