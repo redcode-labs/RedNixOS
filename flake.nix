@@ -29,11 +29,13 @@
     in {
       RedNixOS = mkSystem [
         ./xfce.nix
+        ./graphical.nix
         packages
         "${modulesPath}/installer/cd-dvd/installation-cd-graphical-base.nix"
       ];
       RedNixOS-light = mkSystem [
         ./xfce.nix
+        ./graphical.nix
         "${modulesPath}/installer/cd-dvd/installation-cd-graphical-base.nix"
       ];
       RedNixOS-headless = mkSystem [

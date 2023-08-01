@@ -4,20 +4,12 @@
   ...
 }: {
   # use soystemd-boot EFI boot loader
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    plymouth.enable = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
-  hardware = {
-    bluetooth.enable = true;
-    opengl.enable = true;
-    # disable pulse since we're using pipewire
-    pulseaudio.enable = lib.mkForce false;
-  };
+  hardware.bluetooth.enable = true;
 
   services = {
     timesyncd = {
@@ -25,34 +17,18 @@
       # servers = ["pl.pool.ntp.org"];
     };
 
-    printing.enable = true;
-
-    xserver = {
-      enable = true;
-      layout = "us";
-      xkbVariant = "";
-      libinput.enable = true;
-    };
-
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-    };
-
     openssh = {
       enable = true;
       allowSFTP = true;
       settings = {
+        AllowAgentForwarding = false;
+        AllowStreamLocalForwarding = false;
+        AllowTcpForwarding = true;
+        AuthenticationMethods = "publickey";
         KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
+        X11Forwarding = false;
       };
-      extraConfig = ''
-        AllowTcpForwarding yes
-        X11Forwarding no
-        AllowAgentForwarding no
-        AllowStreamLocalForwarding no
-        AuthenticationMethods publickey
-      '';
     };
 
     avahi = {
@@ -171,7 +147,6 @@
   # nixpkgs config
   nixpkgs.config = {
     allowUnfree = true;
-    # allowBroken = true;
     allowInsecurePredicate = p: true;
   };
 
