@@ -1,4 +1,0 @@
-[TimeZones]
-LocalZone=UTC
-ZoneinfoDir=/etc/zoneinfo
-Zonetab=/etc/zoneinfo/zone.tab
