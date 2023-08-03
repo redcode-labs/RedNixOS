@@ -28,15 +28,15 @@
       packages = {pkgs, ...}: {environment.systemPackages = nixpkgs.lib.attrValues inputs.rednix.packages.${pkgs.system};};
     in {
       RedNixOS = mkSystem [
-        ./xfce.nix
+        ./gnome.nix
         ./graphical.nix
         packages
-        "${modulesPath}/installer/cd-dvd/installation-cd-graphical-base.nix"
+        "${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix"
       ];
       RedNixOS-light = mkSystem [
-        ./xfce.nix
+        ./gnome.nix
         ./graphical.nix
-        "${modulesPath}/installer/cd-dvd/installation-cd-graphical-base.nix"
+        "${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix"
       ];
       RedNixOS-headless = mkSystem [
         packages

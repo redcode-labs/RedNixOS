@@ -110,13 +110,6 @@
     };
   };
 
-  time.timeZone = "UTC"; # change to your timezone
-
-  i18n = {
-    defaultLocale = "en_GB.UTF-8";
-    supportedLocales = ["en_GB.UTF-8/UTF-8"]; # saves 200MB of space
-  };
-
   # default user config
   users.users.red = {
     isNormalUser = true;
