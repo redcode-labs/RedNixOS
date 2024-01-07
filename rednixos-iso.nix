@@ -1,31 +1,15 @@
 {
-  config,
   pkgs,
   lib,
-  pkgs21_11,
   ...
 }: {
-  environment.systemPackages = [
-    pkgs21_11.hello
-  ];
-
   # use soystemd-boot EFI boot loader
-  boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    plymouth.enable = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
-  hardware = {
-    enableRedistributableFirmware = true;
-    bluetooth.enable = true;
-    opengl = {
-      enable = true;
-    };
-  };
+  hardware.bluetooth.enable = true;
 
   services = {
     timesyncd = {
@@ -33,32 +17,18 @@
       # servers = ["pl.pool.ntp.org"];
     };
 
-    printing.enable = true;
-
-    xserver = {
-      enable = true;
-      layout = "us";
-      xkbVariant = "";
-      libinput.enable = true;
-    };
-
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-    };
-
     openssh = {
       enable = true;
-      passwordAuthentication = false;
       allowSFTP = true;
-      kbdInteractiveAuthentication = false;
-      extraConfig = ''
-        AllowTcpForwarding yes
-        X11Forwarding no
-        AllowAgentForwarding no
-        AllowStreamLocalForwarding no
-        AuthenticationMethods publickey
-      '';
+      settings = {
+        AllowAgentForwarding = false;
+        AllowStreamLocalForwarding = false;
+        AllowTcpForwarding = true;
+        AuthenticationMethods = "publickey";
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+        X11Forwarding = false;
+      };
     };
 
     avahi = {
@@ -75,24 +45,23 @@
         interface = [];
       };
     };
-    
+
     # using VPN is generally a good idea
     # use Mullvad btw
     # mullvad-vpn.enable = true;
 
-    hardware = {
-      bolt.enable = true;
-    };
+    hardware.bolt.enable = true;
 
     spice-vdagentd.enable = true;
     qemuGuest.enable = true;
   };
 
-  virtualisation.docker.enable = true;
-
-  virtualisation.vmware.guest.enable = true;
-  virtualisation.hypervGuest.enable = true;
-  virtualisation.virtualbox.guest.enable = false;
+  virtualisation = {
+    docker.enable = true;
+    hypervGuest.enable = true;
+    virtualbox.guest.enable = false;
+    vmware.guest.enable = true;
+  };
 
   # networking better than on LinkedIn
   networking = {
@@ -141,28 +110,9 @@
     };
   };
 
-  time.timeZone = "UTC"; # change to your one
-
-  # locales as well
-  i18n = rec {
-    defaultLocale = "en_GB.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = defaultLocale;
-      LC_IDENTIFICATION = defaultLocale;
-      LC_MEASUREMENT = defaultLocale;
-      LC_MONETARY = defaultLocale;
-      LC_NAME = defaultLocale;
-      LC_NUMERIC = defaultLocale;
-      LC_PAPER = defaultLocale;
-      LC_TELEPHONE = defaultLocale;
-      LC_TIME = defaultLocale;
-    };
-  };
-
   # default user config
   users.users.red = {
     isNormalUser = true;
-    home = "/home/red";
     description = "Red";
     initialPassword = "rednixos";
     extraGroups = [
@@ -183,19 +133,17 @@
         "nix-command"
         "flakes"
       ];
-      allowed-users = ["@wheel"]; #locks down access to nix-daemon
+      allowed-users = ["@wheel"]; # locks down access to nix-daemon
     };
   };
 
   # nixpkgs config
   nixpkgs.config = {
     allowUnfree = true;
-    allowBroken = true;
     allowInsecurePredicate = p: true;
   };
 
-  # the version of NixOS around which RedNixOS will be built
-  system = {
-    stateVersion = "23.05";
-  };
+  # the system state version of NixOS. database schemas and other settings will
+  # depend on this. do NOT change unless you know what you're doing.
+  system.stateVersion = "23.05";
 }

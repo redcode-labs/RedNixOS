@@ -1,7 +1,0 @@
-[$Version]
-update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:enable-scale-effect-by-default,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:overview-group-plugin-id
-
-[Desktops]
-Id_1=6fbbc2f1-6fb2-4d43-930e-b3bf1e0cb5bd
-Number=1
-Rows=1
