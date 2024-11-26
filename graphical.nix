@@ -2,7 +2,7 @@
   boot.plymouth.enable = true;
 
   hardware = {
-    opengl.enable = true;
+    graphics.enable = true;
     # disable pulse since we're using pipewire
     pulseaudio.enable = lib.mkForce false;
   };
@@ -15,11 +15,14 @@
 
     printing.enable = true;
 
+    libinput.enable = true;
+
     xserver = {
       enable = true;
-      layout = "us";
-      xkbVariant = "";
-      libinput.enable = true;
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
     };
   };
 }

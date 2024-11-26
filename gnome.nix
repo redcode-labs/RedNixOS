@@ -62,6 +62,7 @@ in {
   qt = {
     enable = true;
     platformTheme = "gnome";
+    style = "adwaita-dark";
   };
 
   services.xserver.desktopManager.gnome = {
@@ -84,6 +85,6 @@ in {
       sleep-inactive-battery-type='nothing'
     '';
 
-    extraGSettingsOverridePackages = [pkgs.gnome.gnome-settings-daemon];
+    extraGSettingsOverridePackages = [pkgs.gnome-settings-daemon];
   };
 }

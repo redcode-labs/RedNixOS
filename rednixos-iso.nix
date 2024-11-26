@@ -35,7 +35,7 @@
       enable = true;
       browseDomains = [];
       wideArea = false;
-      nssmdns = true;
+      nssmdns4 = true;
     };
 
     unbound = {
@@ -127,7 +127,7 @@
 
   # nix config
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.git;
     settings = {
       extra-experimental-features = [
         "nix-command"
@@ -141,9 +141,10 @@
   nixpkgs.config = {
     allowUnfree = true;
     allowInsecurePredicate = p: true;
+    segger-jlink.acceptLicense = true;
   };
 
   # the system state version of NixOS. database schemas and other settings will
   # depend on this. do NOT change unless you know what you're doing.
-  system.stateVersion = "23.05";
+  system.stateVersion = "unstable";
 }
