@@ -1,0 +1,67 @@
+name: check
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+  # Weekly run catches upstream/infra drift against the pinned
+  # lock, independent of manual bumps.
+  schedule:
+    - cron: "0 6 * * 1"
+
+# One in-flight run per ref; a new push/PR-sync cancels the previous run
+# instead of queuing behind it.
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  flake-check:
+    name: nix flake check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+      - run: nix flake check --no-build --all-systems
+
+  # Eval-only smoke test of every nixosConfiguration
+  config-eval:
+    name: nixosConfiguration eval (${{ matrix.config }})
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - RedNixOS-x86_64-linux
+          - RedNixOS-light-x86_64-linux
+          - RedNixOS-headless-x86_64-linux
+          - RedNixOS-wsl-x86_64-linux
+          - RedNixOS-wsl-light-x86_64-linux
+          - RedNixOS-aarch64-linux
+          - RedNixOS-light-aarch64-linux
+          - RedNixOS-headless-aarch64-linux
+          - RedNixOS-wsl-aarch64-linux
+          - RedNixOS-wsl-light-aarch64-linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+      - run: nix eval --raw '.#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel.drvPath'
+
+  # The only job that runs rednixos rather than evaluating it
+  vm-test:
+    name: VM test (invariants)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+      - uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
+      - name: Confirm KVM is available
+        run: test -r /dev/kvm || { echo "::error::no /dev/kvm on this runner; VM test cannot run"; exit 1; }
+      - run: nix build --print-build-logs '.#checks.x86_64-linux.invariants'

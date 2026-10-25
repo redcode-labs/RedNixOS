@@ -1,0 +1,33 @@
+name: update-flake-lock
+
+# Opens a PR bumping flake.lock on a schedule. This repo reached a point
+# where nixpkgs was pinned ~2 years behind the other inputs, which stayed
+# invisible until a rednix bump dragged in package names the old nixpkgs
+# didn't have. A standing PR makes that drift visible weekly instead of
+# at the next manual bump.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7 1 * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-lock:
+    name: bump flake.lock
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+      - uses: DeterminateSystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3 # v29
+        with:
+          pr-title: "flake.lock: weekly input bump"
+          pr-labels: dependencies
+          # NOTE: with the default GITHUB_TOKEN, the resulting PR does not
+          # trigger the `check` workflow — GitHub suppresses workflow runs on
+          # token-authored PRs to avoid recursion. To get CI on these PRs,
+          # create a fine-grained PAT with contents+pull-requests write, store
+          # it as a secret, and pass `token: ${{ secrets.<NAME> }}` here.

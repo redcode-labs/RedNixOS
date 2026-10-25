@@ -1,0 +1,13 @@
+result
+result-*
+out
+
+.direnv/
+.envrc.local
+
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
