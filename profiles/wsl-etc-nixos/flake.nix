@@ -1,37 +1,41 @@
-# Seeded into the RedNixOS WSL tarball as /etc/nixos/flake.nix
+# Seeded into the RedNixOS WSL tarball as /etc/nixos/flake.nix.
+# `nixos-rebuild switch` picks this up automatically - the attribute below is
+# named for the image hostname (rednixos), so no --flake argument is needed.
 #
-# Without this file NixOS-WSL seeds its own generic configuration.nix, which
-# imports <nixos-wsl/modules> and nothing else
+# Must stay a plain source file: wsl.tarball.configPath is read with
+# lib.cleanSource at eval time, so a derivation path fails there.
 {
   description = "RedNixOS on WSL";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    rednixos.url = "github:redcode-labs/RedNixOS/v1.0.1";
+
+    # Determinate Nix, as the image ships. Added here because it comes from
+    # profiles/ upstream, which drop-in consumers cannot reach.
+    determinate.url = "github:DeterminateSystems/determinate";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    rednixos = {
-      url = "github:redcode-labs/RedNixOS/v1.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "rednixos/nixpkgs";
     };
   };
 
   outputs = {
-    nixpkgs,
-    nixos-wsl,
     rednixos,
+    nixos-wsl,
+    determinate,
     ...
-  }: {
+  }: let
+    nixpkgs = rednixos.inputs.nixpkgs;
+  in {
     nixosConfigurations.rednixos = nixpkgs.lib.nixosSystem {
-      # Change to "aarch64-linux" if you imported an ARM image
+      # Change to "aarch64-linux" if you imported an ARM image.
       system = "x86_64-linux";
 
       modules = [
         nixos-wsl.nixosModules.default
         rednixos.nixosModules.minimal
+        determinate.nixosModules.default
 
         (
           {
@@ -39,25 +43,22 @@
             lib,
             ...
           }: {
+            # Hostname + os-release name, matching the image.
+            services.rednixos.branding.enable = true;
+
             wsl = {
               enable = true;
               defaultUser = "red";
               startMenuLaunchers = true;
             };
 
-            # the full rednix package collection
-            # you can narrow it with services.rednixos.tools.packages
-            # or .categories rather than
-            # turning it off, if you want a subset.
+            # The full rednix collection. Narrow with
+            # services.rednixos.tools.packages or .categories.
             services.rednixos.tools.enable = true;
 
-            # the WSL kernel carries no audit subsystem
-            # and NixOS-WSL's default user has no password
-            # so polkit has nothing to prompt for
-            # hence passwordless wheel via run0's polkit rule AND the
-            # `sudo` shim, rather than a setuid sudo
-
-            # mirrors profiles/wsl.nix, so keeping the two in step
+            # No audit subsystem in the WSL kernel; and the default user has
+            # no password, so polkit cannot prompt - passwordless wheel via
+            # run0 instead of a setuid sudo.
             security.audit.enable = lib.mkForce false;
             security.auditd.enable = lib.mkForce false;
             security.run0.wheelNeedsPassword = lib.mkForce false;

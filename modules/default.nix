@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./tools.nix
+    ./branding.nix
     ./hardening.nix
     ./networking.nix
     ./graphical.nix

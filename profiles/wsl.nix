@@ -6,10 +6,11 @@
 }: {
   imports = [
     ../modules/presets/minimal.nix
-    ./branding.nix
     ./determinate.nix
     inputs.nixos-wsl.nixosModules.default
   ];
+
+  services.rednixos.branding.enable = lib.mkDefault true;
 
   wsl = {
     enable = true;

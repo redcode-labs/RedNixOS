@@ -1,4 +1,4 @@
-<h1 align="center"> RedNixOS </h1> <div align="center"> <img src="assets/logoTransparentBg.png"><br>NixOS 'distro' for security enthusiasts</a><br> 
+<h1 align="center"> RedNixOS </h1> <div align="center"> <img src="assets/screenshot.png"><br>NixOS 'distro' for cybersecurity</a><br> 
 
 </div>
 <br>
@@ -71,7 +71,7 @@ Pin a release rather than tracking the branch if you want reproducibility:
 | `nixosModules.minimal` | Enables `tools`, `hardening`, `nix-config`. |
 | `nixosModules.full` | `minimal` plus `networking`, `graphical`, `theme` (GNOME). |
 
-Or cherry-pick a single concern: `tools`, `hardening`, `networking`, `graphical`, `theme`, `datasets`, `compat`, `sysctl`, `nur`, `nixConfig`, `services`, `installerUser`.
+Or cherry-pick a single concern: `tools`, `hardening`, `networking`, `graphical`, `theme`, `branding`, `datasets`, `compat`, `sysctl`, `nur`, `nixConfig`, `services`, `installerUser`.
 
 Importing a module never changes behaviour on its own, as each one is gated behind its own `enable`, so `nixosModules.default` plus nothing else is a no-op. Presets are the exception: they flip "enable" for you.
 
@@ -103,6 +103,9 @@ Unknown names and categories are dropped silently.
 ```nix
 services.rednixos = {
   tools = { enable = false; packages = null; categories = null; };
+
+  # hostname `rednixos` + os-release name RedNixOS
+  branding.enable = false;
 
   # sshd posture + run0-instead-of-sudo + auditd
   hardening = { enable = false; auditExecve = false; };
@@ -157,7 +160,8 @@ services.rednixos = {
 - **`hardening.enable` also enables `sshd`** with publickey-only authentication and no password auth. If you rely on password logins, set `services.openssh.settings.PasswordAuthentication = true;`
 - **`theme.enable` turns on GNOME** and sets a dark-with-red look through the system dconf database. It sets defaults, not locks, so Settings can still change them
 - **`installerUser` must stay off.** The password is published in this README
-- **Determinate Nix and the RedNixOS hostname/branding are image-only.** They live in `profiles/`, not `modules/`, so importing these modules will never swap your Nix or rename your distro. If you want Determinate Nix (recommended) on your own machine, add [its own flake](https://github.com/DeterminateSystems/determinate) directly.
+- **Nothing renames your host or distro unless you ask.** `branding` is opt-in like every other module; leave it off and your hostname and `os-release` are untouched.
+- **Determinate Nix is image-only.** It lives in `profiles/`, so importing these modules never swaps your Nix. If you want it (recommended), add [its own flake](https://github.com/DeterminateSystems/determinate) directly.
 
 ---
 

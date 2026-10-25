@@ -7,7 +7,6 @@
 }: {
   imports = [
     ../modules/presets/minimal.nix
-    ./branding.nix
     ./determinate.nix
     ./live-kernel.nix
     "${modulesPath}/installer/cd-dvd/installation-cd-base.nix"
@@ -17,6 +16,7 @@
   image.baseName = lib.mkForce "rednixos${lib.optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
 
   services.rednixos = {
+    branding.enable = lib.mkDefault true;
     networking.enable = lib.mkDefault true;
     installerUser.enable = lib.mkDefault true;
   };

@@ -7,7 +7,6 @@
 }: {
   imports = [
     ../modules/presets/full.nix
-    ./branding.nix
     ./determinate.nix
     ./live-kernel.nix
     "${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix"
@@ -16,7 +15,10 @@
   # otherwise the published artifact is called nixos-gnome-<label>.iso
   image.baseName = lib.mkForce "rednixos${lib.optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
 
-  services.rednixos.installerUser.enable = lib.mkDefault true;
+  services.rednixos = {
+    branding.enable = lib.mkDefault true;
+    installerUser.enable = lib.mkDefault true;
+  };
 
   # nixpkgs' installation-device profile re-enables sudo at mkDefault;
   # override so the hardening intent (run0 + polkit) wins on the live .iso

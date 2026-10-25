@@ -12,6 +12,8 @@
   imports = [../modules/presets/full.nix];
 
   services.rednixos = {
+    branding.enable = lib.mkDefault true;
+
     datasets = {
       wordlists.enable = lib.mkDefault true;
       payloads.enable = lib.mkDefault true;

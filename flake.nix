@@ -17,9 +17,7 @@
     # Determinate Nix for the shipped images (see profiles/determinate.nix).
     # Taken from GitHub rather than FlakeHub so the top-level input needs no
     # FlakeHub resolution; its own `nix` input still points at FlakeHub, which
-    # is where that source lives. Deliberately NOT following our nixpkgs -
-    # Nix pins the nixpkgs it is built against, and overriding that is a good
-    # way to get a broken Nix.
+    # is where that source lives
     determinate.url = "github:DeterminateSystems/determinate";
 
     nur = {
@@ -37,9 +35,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Reference content for the datasets module. `flake = false` so we get
+    # reference content for the datasets module. `flake = false` so we get
     # the raw repository tree as a store path; the datasets module symlinks
-    # it under /usr/share to match Kali's layout.
+    # it under /usr/share to match Kali's layout
     payloadsallthethings = {
       url = "github:swisskyrepo/PayloadsAllTheThings";
       flake = false;
@@ -65,10 +63,8 @@
     isoSystems = ["x86_64-linux" "aarch64-linux"];
     wslSystems = ["x86_64-linux" "aarch64-linux"];
 
-    # Artifacts are Linux-only, but the formatter has to work wherever
-    # development happens - `nix fmt` was unavailable on darwin until this
-    # list existed. x86_64-darwin is deliberately absent: nixpkgs 26.11
-    # dropped it, and listing it fails eval.
+    # artifacts are Linux-only, but the formatter has to work wherever
+    # development happens
     devSystems = isoSystems ++ ["aarch64-darwin"];
 
     # rednix exposes two per-system shapes:
@@ -124,6 +120,7 @@
       minimal = wrap ./modules/presets/minimal.nix;
 
       tools = wrap ./modules/tools.nix;
+      branding = wrap ./modules/branding.nix;
       hardening = wrap ./modules/hardening.nix;
       networking = wrap ./modules/networking.nix;
       graphical = wrap ./modules/graphical.nix;
