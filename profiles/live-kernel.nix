@@ -8,7 +8,7 @@
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   # ZFS dropped for now: zfs 2.4.4 is marked broken against kernel 7.3, so
-  # shipping the module stops the ISO building at all. 
+  # shipping the module stops the ISO building at all.
   # Seems more important to have driver support on unknown/new hardware
   # rather than have niche feature like that enabled by default.
   #
@@ -23,6 +23,6 @@
 
   # tl;dr no ZFS pool access from the ISO. `zpool import` needs
   # zfs.ko and there is no userspace fallback.
-  
+
   boot.supportedFilesystems.zfs = false;
 }
