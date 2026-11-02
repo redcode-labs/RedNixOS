@@ -1,37 +1,28 @@
 # kernel policy for the live ISOs
 # shared by iso.nix and iso-headless.nix
 {
-  config,
   lib,
   pkgs,
   ...
 }: {
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
-  # ZFS: keeping the capability, dropping the integration
+  # ZFS dropped for now: zfs 2.4.4 is marked broken against kernel 7.3, so
+  # shipping the module stops the ISO building at all. 
+  # Seems more important to have driver support on unknown/new hardware
+  # rather than have niche feature like that enabled by default.
   #
-  # nixpkgs' profiles/base.nix turns `boot.supportedFilesystems.zfs` on by
-  # mkDefault because the installer profile wants to install *onto* ZFS
+  # You can re-add both lines below once
+  # `linuxPackages_latest.${pkgs.zfs.kernelModuleAttribute}` is no longer
+  # broken (needs `config` back in the argument set):
   #
-  # RedNixOS doesn't, as the ISO is a live environment
-  # What it needs is to be able to read a target's pools (Proxmox/TrueNAS/etc.),
-  # so kernel module is added and operator decides when to load them:
-  #
-  #   modprobe zfs
-  #   zpool import -a -o readonly=on
-  #
-  # also, it is safer for forensics:
-  # with it enabled, zfs-import/zfs-mount units can import pools
-  # automatically at boot, and importing read-write replays the ZIL and
-  # rewrites labels - i.e. it modifies the evidence
+  #   boot.extraModulePackages = [
+  #     config.boot.kernelPackages.${pkgs.zfs.kernelModuleAttribute}
+  #   ];
+  #   environment.systemPackages = [pkgs.zfs];
 
+  # tl;dr no ZFS pool access from the ISO. `zpool import` needs
+  # zfs.ko and there is no userspace fallback.
+  
   boot.supportedFilesystems.zfs = false;
-
-  # Resolved through `kernelModuleAttribute` rather than hardcoding `zfs_2_4`,
-  # so a ZFS version bump in nixpkgs doesn't silently drop the module.
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.${pkgs.zfs.kernelModuleAttribute}
-  ];
-
-  environment.systemPackages = [pkgs.zfs];
 }
